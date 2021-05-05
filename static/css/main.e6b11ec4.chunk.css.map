@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/styles.css"],"names":[],"mappings":"AAAA,iBAGE,QAAS,CACT,SACF,CACA,KACE,QAAS,CACT,eACF,CACA,GACE,eACF","file":"main.e6b11ec4.chunk.css","sourcesContent":["*,\r\n*::before,\r\n*::after {\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\nbody {\r\n  margin: 0;\r\n  line-height: 1.5;\r\n}\r\nul {\r\n  list-style: none;\r\n}\r\n"]}
