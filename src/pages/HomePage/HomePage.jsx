@@ -1,4 +1,5 @@
 import { Component } from "react";
+import PropTypes from "prop-types";
 import MovieList from "../../components/MovieList/MovieList";
 import ApiService from "../../services/ApiService/ApiService";
 const apiService = new ApiService();
@@ -35,4 +36,9 @@ class HomePage extends Component {
     );
   }
 }
+HomePage.propTypes = {
+  history: PropTypes.object,
+  location: PropTypes.object,
+  match: PropTypes.object,
+};
 export default HomePage;

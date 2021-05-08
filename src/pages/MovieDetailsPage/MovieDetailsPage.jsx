@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { NavLink, Route } from "react-router-dom";
+import PropTypes from "prop-types";
 import Cast from "../../components/Cast/Cast";
 import Reviews from "../../components/Reviews/Reviews";
 import ApiService from "../../services/ApiService/ApiService";
@@ -35,7 +36,6 @@ class MovieDetailsPage extends Component {
       state: location.state,
       search: `query=${location.state.query}`,
     });
-    console.log(location.search);
   };
   render() {
     const id = this.props.match.params.movieId;
@@ -51,38 +51,55 @@ class MovieDetailsPage extends Component {
 
     return (
       <>
-        <button onClick={this.hanleGoBack} className="button" type="button">
+        <button
+          onClick={this.hanleGoBack}
+          className="button backBtn"
+          type="button"
+        >
           ← Go back
         </button>
-        <div>
-          <img src={imgUrl} alt="" />
-          <h2>{title}</h2>
-          <p>{vote_average}</p>
-          <p>{overview}</p>
-          <p>{genresList}</p>
+        <div className="movieDetails">
+          <img className="moviePoster" src={imgUrl} alt="" />
+          <div className="description">
+            <h2 className="mar">{title}</h2>
+            <p className="mar">User score: {vote_average * 10}%</p>
+            <h4 className="mar">Overview</h4>
+            <p className="mar">{overview}</p>
+            <h4 className="mar">Genres</h4>
+            <p>{genresList}</p>
+          </div>
         </div>
-        <NavLink
-          to={{
-            pathname: `/movies/${id}/cast`,
-            state: {
-              query: this.props.location.state.query,
-              pathname: this.props.location.state.pathname,
-            },
-          }}
-        >
-          Cast
-        </NavLink>
-        <NavLink
-          to={{
-            pathname: `/movies/${id}/reviews`,
-            state: {
-              query: this.props.location.state.query,
-              pathname: this.props.location.state.pathname,
-            },
-          }}
-        >
-          Reviews
-        </NavLink>
+        <div>
+          <h3 className="mar">Additional information</h3>
+          <ul>
+            <li className="mar">
+              <NavLink
+                to={{
+                  pathname: `/movies/${id}/cast`,
+                  state: {
+                    query: this.props.location.state.query,
+                    pathname: this.props.location.state.pathname,
+                  },
+                }}
+              >
+                Cast
+              </NavLink>
+            </li>
+            <li className="mar">
+              <NavLink
+                to={{
+                  pathname: `/movies/${id}/reviews`,
+                  state: {
+                    query: this.props.location.state.query,
+                    pathname: this.props.location.state.pathname,
+                  },
+                }}
+              >
+                Reviews
+              </NavLink>
+            </li>
+          </ul>
+        </div>
 
         <Route path={"/movies/:movieId/cast"} component={Cast} />
         <Route path={"/movies/:movieId/reviews"} component={Reviews} />
@@ -90,4 +107,9 @@ class MovieDetailsPage extends Component {
     );
   }
 }
+MovieDetailsPage.propTypes = {
+  history: PropTypes.object,
+  location: PropTypes.object,
+  match: PropTypes.object,
+};
 export default MovieDetailsPage;

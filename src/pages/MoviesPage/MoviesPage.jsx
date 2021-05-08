@@ -1,4 +1,5 @@
 import { Component } from "react";
+import PropTypes from "prop-types";
 import QueryString from "query-string";
 import MovieList from "../../components/MovieList/MovieList";
 import ApiService from "../../services/ApiService/ApiService";
@@ -34,7 +35,6 @@ class MoviesPage extends Component {
         search: `query=${this.state.query}`,
       });
     }
-    console.log(this.props);
   };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -50,11 +50,7 @@ class MoviesPage extends Component {
     return (
       <>
         <form onSubmit={this.handleSubmit} className="searchForm">
-          <input
-            value={this.state.query}
-            onChange={this.handleInputChange}
-            className="input"
-          />
+          <input onChange={this.handleInputChange} className="input" />
           <button type="submit" className="button searchBtn">
             Search
           </button>
@@ -71,4 +67,9 @@ class MoviesPage extends Component {
     );
   }
 }
+MoviesPage.propTypes = {
+  history: PropTypes.object,
+  location: PropTypes.object,
+  match: PropTypes.object,
+};
 export default MoviesPage;
