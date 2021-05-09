@@ -10,9 +10,9 @@ class Cast extends Component {
     cast: [],
   };
   componentDidMount() {
-    this.fetchMovies();
+    this.fetchCast();
   }
-  fetchMovies = () => {
+  fetchCast = () => {
     const id = this.props.match.params.movieId;
     apiService.getMovieCredits(id).then((data) => {
       data = data.map((el) => {
@@ -23,6 +23,10 @@ class Cast extends Component {
       });
       this.setState({
         cast: data,
+      });
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
       });
     });
   };

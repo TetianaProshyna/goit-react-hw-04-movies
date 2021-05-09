@@ -1,8 +1,7 @@
-import { Component } from "react";
+import { Component, Suspense } from "react";
 import { NavLink, Route } from "react-router-dom";
+import { routesDetails } from "../../components/routes";
 import PropTypes from "prop-types";
-import Cast from "../../components/Cast/Cast";
-import Reviews from "../../components/Reviews/Reviews";
 import ApiService from "../../services/ApiService/ApiService";
 const apiService = new ApiService();
 
@@ -34,7 +33,7 @@ class MovieDetailsPage extends Component {
     history.push({
       pathname: location.state?.pathname || "/",
       state: location.state,
-      search: `query=${location.state.query}`,
+      search: location.state.query ? `query=${location.state.query}` : null,
     });
   };
   render() {
@@ -101,8 +100,16 @@ class MovieDetailsPage extends Component {
           </ul>
         </div>
 
-        <Route path={"/movies/:movieId/cast"} component={Cast} />
-        <Route path={"/movies/:movieId/reviews"} component={Reviews} />
+        <Suspense fallback={<p>Loading...</p>}>
+          {routesDetails.map(({ label, path, exact, component }) => (
+            <Route
+              key={label}
+              path={path}
+              exact={exact}
+              component={component}
+            />
+          ))}
+        </Suspense>
       </>
     );
   }

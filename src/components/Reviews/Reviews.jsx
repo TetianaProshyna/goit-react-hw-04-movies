@@ -13,11 +13,15 @@ class Reviews extends Component {
 
   fetchMovies = () => {
     const id = this.props.match.params.movieId;
-    apiService.getMovieReviews(id).then((data) =>
+    apiService.getMovieReviews(id).then((data) => {
       this.setState({
         reviews: data,
-      })
-    );
+      });
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    });
   };
   render() {
     return (
