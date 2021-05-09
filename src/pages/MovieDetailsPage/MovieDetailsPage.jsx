@@ -14,10 +14,16 @@ class MovieDetailsPage extends Component {
     vote_average: "",
   };
   componentDidMount() {
-    const id = this.props.match.params.movieId;
+    const { movieId } = this.props.match.params;
     apiService
-      .getMovieById(id)
+      .getMovieById(movieId)
       .then(({ genres, overview, poster_path, title, vote_average }) => {
+        if (genres) {
+          genres = genres.map((el) => el.name).join(", ");
+        }
+        if (poster_path) {
+          poster_path = `https://image.tmdb.org/t/p/w500/${poster_path}`;
+        }
         this.setState({
           genres,
           overview,
@@ -39,14 +45,6 @@ class MovieDetailsPage extends Component {
   render() {
     const id = this.props.match.params.movieId;
     const { genres, overview, poster_path, title, vote_average } = this.state;
-    let genresList, imgUrl;
-
-    if (genres) {
-      genresList = genres.map((el) => el.name).join(", ");
-    }
-    if (poster_path) {
-      imgUrl = `https://image.tmdb.org/t/p/w500/${poster_path}`;
-    }
 
     return (
       <>
@@ -55,17 +53,20 @@ class MovieDetailsPage extends Component {
           className="button backBtn"
           type="button"
         >
-          ← Go back
+          <span role="img" aria-label="arrow-left-emoji">
+            ←
+          </span>{" "}
+          Go back
         </button>
         <div className="movieDetails">
-          <img className="moviePoster" src={imgUrl} alt="" />
+          <img className="moviePoster" src={poster_path} alt="movie-poster" />
           <div className="description">
             <h2 className="mar">{title}</h2>
             <p className="mar">User score: {vote_average * 10}%</p>
             <h4 className="mar">Overview</h4>
             <p className="mar">{overview}</p>
             <h4 className="mar">Genres</h4>
-            <p>{genresList}</p>
+            <p>{genres}</p>
           </div>
         </div>
         <div>

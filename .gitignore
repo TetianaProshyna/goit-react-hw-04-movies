@@ -69,3 +69,7 @@ typings/
 
 # Local Netlify folder
 .netlify
+
+# Api key
+
+authKey.js

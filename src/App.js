@@ -1,9 +1,8 @@
-import { Component } from "react";
+import { Component, Suspense } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Container from "./components/Container/Container";
 import { routes } from "./components/routes";
-import { Suspense } from "react";
 class App extends Component {
   render() {
     return (

@@ -8,10 +8,10 @@ class Reviews extends Component {
     reviews: [],
   };
   componentDidMount() {
-    this.fetchMovies();
+    this.fetchReviews();
   }
 
-  fetchMovies = () => {
+  fetchReviews = () => {
     const id = this.props.match.params.movieId;
     apiService.getMovieReviews(id).then((data) => {
       this.setState({

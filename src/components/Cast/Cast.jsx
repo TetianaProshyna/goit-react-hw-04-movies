@@ -13,8 +13,8 @@ class Cast extends Component {
     this.fetchCast();
   }
   fetchCast = () => {
-    const id = this.props.match.params.movieId;
-    apiService.getMovieCredits(id).then((data) => {
+    const { movieId } = this.props.match.params;
+    apiService.getMovieCredits(movieId).then((data) => {
       data = data.map((el) => {
         if (el.profile_path) {
           el.profile_path = `https://image.tmdb.org/t/p/w500/${el.profile_path}`;
@@ -35,7 +35,11 @@ class Cast extends Component {
       <ul className="castList">
         {this.state.cast.map(({ id, profile_path, name, character }) => (
           <li className="castItem" key={id}>
-            <img className="castImg" src={profile_path || img} alt="" />
+            <img
+              className="castImg"
+              src={profile_path || img}
+              alt="actor-card"
+            />
             <div className="descr-wrapper">
               <p>{name}</p>
               <p>{character}</p>
