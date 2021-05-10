@@ -39,6 +39,7 @@ class MoviesPage extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.fetchMovies();
+    e.target.reset();
   };
   handleInputChange = (e) => {
     this.setState({
